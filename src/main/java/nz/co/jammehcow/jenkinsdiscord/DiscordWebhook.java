@@ -161,10 +161,11 @@ class DiscordWebhook {
         return this;
     }
 
-    public DiscordWebhook addField(String name, String value) {
+    public DiscordWebhook addField(String name, String value, boolean inline) {
         JSONObject field = new JSONObject();
         field.put("name", name);
         field.put("value", value);
+        field.put("inline", inline);
         this.fields.put(field);
         return this;
     }
