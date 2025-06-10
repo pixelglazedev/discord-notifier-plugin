@@ -348,7 +348,7 @@ public class WebhookPublisher extends Notifier {
             return;
         }
         // Go through all fields and add them to the webhook
-        dynamicFieldContainer.getFields().forEach(pair -> wh.addField(pair.getKey(), pair.getValue()));
+        dynamicFieldContainer.getFields().forEach(pair -> wh.addField(pair.getKey(), pair.getValue(), false));
     }
 
     public BuildStepMonitor getRequiredMonitorService() {

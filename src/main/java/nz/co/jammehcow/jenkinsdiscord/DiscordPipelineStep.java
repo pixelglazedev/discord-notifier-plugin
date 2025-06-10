@@ -282,7 +282,7 @@ public class DiscordPipelineStep extends AbstractStepImpl {
                 return;
             }
             // Go through all fields and add them to the webhook
-            step.dynamicFieldContainer.getFields().forEach(pair -> wh.addField(pair.getKey(), pair.getValue()));
+            step.dynamicFieldContainer.getFields().forEach(pair -> wh.addField(pair.getKey(), pair.getValue(), false));
         }
 
         private String checkLimitAndTruncate(String fieldName, String value, int limit) {

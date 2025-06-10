@@ -21,6 +21,7 @@ class DiscordWebhook {
     private JSONObject obj;
     private JSONObject embed;
     private JSONArray fields;
+    private JSONArray components;
     private InputStream file;
     private String filename;
 
@@ -64,6 +65,7 @@ class DiscordWebhook {
         this.obj.put("avatar_url", "https://get.jenkins.io/art/jenkins-logo/1024x1024/headshot.png");
         this.embed = new JSONObject();
         this.fields = new JSONArray();
+        this.components = new JSONArray();
     }
 
     /**
@@ -121,6 +123,11 @@ class DiscordWebhook {
         return this;
     }
 
+    public DiscordWebhook setColor(Integer color) {
+        this.embed.put("color", color);
+        return this;
+    }
+
     /**
      * Sets the embed description.
      *
@@ -170,6 +177,23 @@ class DiscordWebhook {
         return this;
     }
 
+    public DiscordWebhook addButton(String label, String url) {
+        JSONObject button = new JSONObject();
+        button.put("type", 2);
+        button.put("label", label);
+        button.put("style", 5);
+        button.put("url", url);
+
+        JSONObject actionRow = new JSONObject();
+        actionRow.put("type", 1);
+        JSONArray buttons = new JSONArray();
+        buttons.put(button);
+        actionRow.put("components", buttons);
+        this.components.put(actionRow);
+
+        return this;
+    }
+
     /**
      * Sets the embed's footer text.
      *
@@ -187,6 +211,10 @@ class DiscordWebhook {
         return this;
     }
 
+    public String getJSON() {
+        return obj.toString();
+    }
+
     /**
      * Send the payload to Discord.
      *
@@ -199,6 +227,7 @@ class DiscordWebhook {
             throw new WebhookException("Embed object larger than the limit (" + this.embed.toString().length() + ">6000).");
 
         this.obj.put("embeds", new JSONArray().put(this.embed));
+        this.obj.put("components", components);
 
         try {
             final Jenkins instance = Jenkins.getInstanceOrNull();

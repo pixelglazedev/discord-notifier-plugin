@@ -18,7 +18,7 @@
   <packaging>hpi</packaging>
 
   <properties>
-    <changelist>999999-SNAPSHOT</changelist>
+    <changelist>1.0.2</changelist>
     <gitHubRepo>jenkinsci/discord-notifier-plugin</gitHubRepo>
     <jenkins.version>2.375.4</jenkins.version>
   </properties>
